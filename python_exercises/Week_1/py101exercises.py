@@ -21,7 +21,7 @@ day = int(input('Day (0-6)?'))
 print({}.format(day))
 
 ## exercise 5
-
+    
 ## exercise 6
 c = input("What is the temperature in Celsius? ")
 f = (c * 1.8) + 32

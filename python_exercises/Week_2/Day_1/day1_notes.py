@@ -39,21 +39,33 @@
 # test2 = MyClass()
 # test.SayHello()
 
+# class Person:
+#   #global variable
+#   GlobalPerson = "Zelda"
+#   def __init__ (self, name):
+#     self.name = name
+#     print(name)
+#   def greet (self, friend):
+#     print("Hello {} and {} and {}".format(self.name, friend, self.GlobalPerson))
+
+# matt = Person("Fisher")
+# matt.greet("Travis")
+
+# person1 = Person("Hussein")
+# person1.greet("Skyler")
+
+# Person.GlobalPerson = "Eric"
+# matt.greet("Travis")
+# person1.greet("Skyler")
+
 class Person:
-  #global variable
-  GlobalPerson = "Zelda"
+  feet = 2
   def __init__ (self, name):
     self.name = name
-    print(name)
-  def greet (self, friend):
-    print("Hello {} and {} and {}".format(self.name, friend, self.GlobalPerson))
-
-matt = Person("Fisher")
-matt.greet("Travis")
-
-person1 = Person("Hussein")
-person1.greet("Skyler")
-
-Person.GlobalPerson = "Eric"
-matt.greet("Travis")
-person1.greet("Skyler")
+  @classmethod
+  def create (cls):
+    name = input('What is your name? ')
+    return cls(name)
+  @staticmethod
+  def fix_name (name):
+    return name.replace('-', ' ')
