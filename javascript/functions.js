@@ -19,7 +19,7 @@
 
 // function evenNumbersOutput() {
 //     var evArray = evenArray.filter(evenNumber);
-//     console.log('The even numbers: ' + evArray);
+    // console.log('The even numbers: ' + evArray);
 // }
 
 // evenNumbersOutput()
