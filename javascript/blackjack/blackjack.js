@@ -75,7 +75,7 @@ function DeckObject() {
       checkIfBust()
     }
   }
-};
+}
 
 // Main deck used to play the game
 (function fillPlayingDeck() {

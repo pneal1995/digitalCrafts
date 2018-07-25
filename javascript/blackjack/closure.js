@@ -1,9 +1,9 @@
-var counter = (function(n) {
+var counter = (function(n = 0) {
   return function() {
     n += 1;
     return n;
   }
-}(0));
+});
 
 console.log(counter(2));
 console.log(counter(2));
@@ -28,28 +28,23 @@ console.log(counter(2));
 // console.log(count.increment());
 // console.log(count.increment());
 
+
+ 
 class Counter {
-  constructer (x) {
-    this.x = x;
+  constructor (x = 0) {
     this.n = 0;
+    this.x = x;
   }
   increment() {
     this.n++;
-    console.log("increment: " + this.n);
-    console.log(this.x)
     return this.x + this.n;
   }
   decrement() {
-    this.n--;
-    console.log("increment: " + this.n);
-    return this.x + this.n;
+      this.n--;
+      return this.x + this.n;
   }
 };
 
-let count1 = new Counter(5);
-let count2 = new Counter(0);
+let count1 = new Counter(0);
+let count2 = new Counter(5);
 
-console.log(count1.x)
-
-// console.log(count1.increment());
-// console.log(count1.increment());
