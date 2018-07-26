@@ -1,4 +1,4 @@
-// Globals
+// SPAGETTI CODE
 var deal = document.getElementById('deal'),
 hit = document.getElementById('hit'),
 stand = document.getElementById('stand'),
@@ -6,20 +6,20 @@ reset = document.getElementById('reset'),
 psum = document.getElementById('psum'),
 dsum = document.getElementById('dsum'),
 result = document.getElementById('resultbox'),
-winsCounter = document.getElementById('winscounter'),
 playerCards = document.getElementById('playercards'),
 dealerCards = document.getElementById('dealercards');
 
 document.getElementById('psum').readOnly = true;
 document.getElementById('dsum').readOnly = true;
 document.getElementById('resultbox').readOnly = true;
-document.getElementById('winscounter').readOnly = true;
 
 // Actions
 deal.addEventListener('click', playGame)
 hit.addEventListener('click', hitMe)
 stand.addEventListener('click', userStands)
 reset.addEventListener('click', resetGame)
+
+
 
 deal.disabled = false
 stand.disabled = true
@@ -40,9 +40,10 @@ function DeckObject() {
       imgElement.src = 'cards/' + cards[i].cardNum + '_of_' + cards[i].cardSuit + '.jpg'
       imgElement.style.height = '120px'
       imgElement.style.width = '100px'
+      imgElement.style.padding = '5px'
       if (this === playerOne) {
         noOfCardsPlayer++
-        playerCards.appendChild(imgElement)
+        playercards.appendChild(imgElement)
       } else {
         noOfCardsDealer++
         dealerCards.appendChild(imgElement)
@@ -124,19 +125,16 @@ function checkIfBust() {
   dsum.value = dscore
   if (pscore > 21) {
     result.value = 'B U S T'
-    noOfWins += 0
-    winsCounter.value = noOfWins
+    alertMe()
     disableHitStand()
   } else if (pscore === 21 && dscore !== 21) {
-    result.value = 'y o u  w i n'
-    noOfWins += 1
-    winsCounter.value = noOfWins
+    result.value = 'You win with' + pscore
+    alertMe()
     disableHitStand()
   }
     else if (pscore === 21 && dscore === 21) {
-        result.value = 'You tie'
-        noOfWins += 0
-        winsCounter.value = noOfWins
+        result.value = 'You both have blackjacks and tie!'
+        alertMe()
         disableHitStand()
   }
 }
@@ -150,8 +148,6 @@ function hitMe() {
 function userStands() {
   var pscore = playerOne.sumCards(playerOne.deck)
   var dscore = pitboss.sumCards(pitboss.deck)
-  // psum.value = pscore
-  // dsum.value = dscore
   while (dscore < 17) {
     pitboss.hitCard(pitboss.deck)
     dscore = pitboss.sumCards(pitboss.deck)
@@ -159,25 +155,37 @@ function userStands() {
   }
   if (dscore > pscore && dscore <= 21) {
     result.value = 'Dealer won with ' + dscore
+    alertMe()
     disableHitStand()
   } 
     else if (pscore > dscore || dscore > 21) {
     if (pscore === 21) {
-      result.value = 'b l a c j a c k ! @'
-      noOfWins += 1
-      winsCounter.value = noOfWins
+      result.value = 'You got a BLACKJACK !!'
+      alertMe()
       disableHitStand()
     } else {
       result.value = 'You won with ' + pscore
-      noOfWins += 1
-      winsCounter.value = noOfWins
+      alertMe()
       disableHitStand()
     }
   } else {
     result.value = 'Both tied with ' + pscore
+    alertMe()
     disableHitStand()
   }
 }
+
+function alertMe() {
+  bootbox.dialog({ 
+    size: "large", 
+    onEscape: true, 
+    backdrop: true,
+    closeButton: false,
+    // animate:true,
+    message: result.value, 
+    callback: function(result) {} 
+  })
+};
 
 // function that disables hit and stand button after result is shown.
 function disableHitStand() {
@@ -198,14 +206,12 @@ function playGame() {
   dsum.value = dscore
   if (pscore === 21) {
     result.value = 'You won with BLACKJACK !'
-    noOfWins += 1
-    winsCounter.value = noOfWins
+    alertMe()
     disableHitStand()
   }
   if (dscore === 21) {
-    result.value = 'You won with BLACKJACK !'
-    noOfWins += 1
-    winsCounter.value = noOfWins
+    result.value = 'The dealer wins with blackjack'
+    alertMe()
     disableHitStand()
   }
 }
@@ -214,24 +220,22 @@ function resetGame() {
   result.value = ''
   dsum.value = ''
   psum.value = ''
-  stand.disabled = true;
+  deal.disabled = false;
   hit.disabled = true;
-  function removeImages() {
-    var playerCardImages = playercards.childNodes
-    var dealerCardImages = dealercards.childNodes
-    for (var i = noOfCardsPlayer; i > 0; i--) {
-      playerCardImages[i].parentNode.removeChild(playerCardImages[i])
-    }
-    for (var j = noOfCardsDealer; j > 0; j--) {
-      dealerCardImages[j].parentNode.removeChild(dealerCardImages[j])
-    }
-  }
+  stand.disabled = true;
   playerOne.deck = []
   pitboss.deck = []
   noOfCardsDealer = 0
   noOfCardsPlayer = 0
-  
-}
+  playerCards = document.getElementById('playercards');
+  dealerCards = document.getElementById('dealercards');
+  while (playerCards.firstChild) {
+    playerCards.removeChild(playerCards.firstChild);
+  }
+  while (dealerCards.firstChild) {
+    dealerCards.removeChild(dealerCards.firstChild);
+  }
+};
 
 function CardObject(cardNum, cardSuit) {
   this.cardNum = cardNum

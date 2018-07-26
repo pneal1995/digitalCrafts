@@ -1,11 +1,23 @@
+.buttons{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    /* margin: auto; */
+    
+}
 body{
-    background: rgb(21, 111, 79);
+    background: url("bgimg4.png");;
+    background-repeat: no-repeat;
+    position: relative;
+    font-family: 'Courier New', Courier, monospace
 }
 #container{
-    background-image: url("");
+    
+    background-image: url("bgimg4.png");
     background-attachment: local;
     background-repeat: no-repeat;
     position: relative;
+    width: 100%;
 }
 .table{
     padding: 0px;
@@ -16,24 +28,31 @@ body{
     align-content: center;
     color: white;
     font-size: 5em;
+    /* margin-bottom: -500px; */
 }
 .images {
     /* flex-direction: column; */
     /* margin: auto; */
     /* padding-bottom: 100px; */
+    color: whitesmoke;
 }
 button {
     font-size: 15px;
     font-weight: bold;
     border-radius: 10px;
     padding: 0px;
+    
     background-color: white;
     border: 1px solid white;
     width: 69px;
     height: 48px;
 }
 .sumdisplay{
-    /* display: flex; */
+    display: flex;
+    flex-direction: column;
+    /* margin: auto; */
+    /* align-items:left;
+    justify-content: safe; */
     color: white;
     font-size: 1em;
 
@@ -47,12 +66,12 @@ button {
 }
 
 #resultbox{
-    width: 50%;
+    display: inline-flex;
+    flex-direction: column;
+    color: white;
+
 }
 
-#winscounter{
-    width: 24.75%;
-}
 
 input{
     border: none;
@@ -60,17 +79,32 @@ input{
     background-color: transparent;  
 }
 
-#alert {
-	margin: 0 auto;
-	opacity: 0.95;
-	position: relative;
-	text-align: center;
-	top: 34.5%;
-	width: 500px;
-	z-index: 0;
+.images {
+    height: 316px;
+    margin-top: 50px;
+    margin: auto;
 }
 
-/* #hitBtn{}
-#standBtn{}
-#dealBtn{}
-#resetBtn{} */
+#dsum{
+    color: white;
+    position: absolute;
+    padding-left: 5px;
+    margin-left: 5px;
+    text-justify: auto;
+}
+#psum{
+    color: white;
+    position: absolute;
+    margin-left: 5px;
+    text-justify: auto;
+    padding-left: 14px;
+}
+
+#show{
+    color: white;
+}
+
+.cash{
+    width: 250px;
+    height: 175px;
+}
