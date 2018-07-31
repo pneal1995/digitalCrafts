@@ -16,7 +16,7 @@
 
 <div id="id01" class="modal">
   <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" id="localStorageTest" method="post" action="">
+  <form class="modal-content" method="post" action="">
     <div class="container">
       <h1>Sign Up</h1>
       <p>Please fill in this form to create an account.</p>
@@ -29,7 +29,7 @@
 
       <label for="psw-repeat"><b>Repeat Password</b></label>
       <input type="password" placeholder="Repeat Password" name="psw-repeat" id="password_confirm" class="stored" oninput="check(this)" required>
-      
+
       <label>
         <input type="checkbox" checked="checked" name="remember" id="rememberChkBox" style="margin-bottom:15px"> Remember me
       </label>
@@ -38,19 +38,40 @@
 
       <div class="clearfix">
         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Sign Up</button>
+        <button type="submit" id="submitButton" class="signupbtn">Sign Up</button>
       </div>
     </div>
-  </form>
+</form>
 </div>
-    
-  
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
     <script>
+    // when check box is checked, and submit is pressed, store user/pass to local storage
+    $('#submitButton').on('click',function(e){
+      e.preventDefault();
+
+      if($('#rememberChkBox').is(':checked') == true) {
+        let email = $('#email').val()
+        let password =  $('#password').val()
+        let password_confirm = $('#password_confirm').val()
+        console.log(email)
+        console.log(password)
+        console.log(password_confirm)
+
+        localStorage.email=email
+        localStorage.password=password
+      } else {
+        console.log('not stored')
+      }
+    })
+
+
+
     function check(input) {
         if (input.value != document.getElementById('password').value) {
             input.setCustomValidity('Password Must be Matching.');
@@ -60,7 +81,6 @@
         }
     }
          var modal = document.getElementById('id01');
-
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
             if (event.target == modal) {
@@ -68,25 +88,6 @@
             }
         }
 
-    $(document).ready(function () {
-        function init() {
-            if (localStorage["email"]) {
-                $('#email').val(localStorage["email"]);
-            }
-            if (localStorage["password"]) {
-                $('#password').val(localStorage["password"]);
-            }
-        }
-        init();
-    });
-
-    $('.stored').keyup(function () {
-    localStorage[$(this).attr('email')] = $(this).val();
-    });
-
-    $('#localStorageTest').submit(function() {
-    localStorage.clear();
-    });
     </script>
   </body>
 </html>
